@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GATE EC Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h1>📘 GATE EC Syllabus Tracker</h1>
+
+<!-- COUNTDOWN -->
+<div class="countdown">
+    <div class="time-box">
+        <span id="days">0</span>
+        <p>Days</p>
+    </div>
+    <div class="time-box">
+        <span id="hours">0</span>
+        <p>Hours</p>
+    </div>
+    <div class="time-box">
+        <span id="minutes">0</span>
+        <p>Min</p>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard">
+
+    <!-- LEFT: SUBJECTS -->
+    <div class="left">
+        <div class="container" id="subjects"></div>
+    </div>
+
+    <!-- RIGHT: OVERALL PROGRESS -->
+    <div class="right">
+        <div class="overall-card">
+            <h2>Overall Progress</h2>
+
+            <div class="donut">
+                <div class="donut-inner">
+                    <span id="overallPercent">0%</span>
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <span class="green"></span> Completed
+                </div>
+                <div class="legend-item">
+                    <span class="gray"></span> Remaining
+                </div>
+            </div>
+
+            <p class="note">Green = Completed, Gray = Remaining</p>
+        </div>
+    </div>
+
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>
