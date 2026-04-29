@@ -27,54 +27,66 @@ const topicData = {
 };
 
 const tasks = ["PYQ","DPP","Revision","Notes"];
-
 const container = document.getElementById("subjects");
 
 // SUBJECT CARDS
-subjects.forEach(sub => {
-    let total = topicData[sub.prefix].length * tasks.length;
+for (let i = 0; i < subjects.length; i++) {
+    let sub = subjects[i];
+    let topics = topicData[sub.prefix];
+
+    let total = topics.length * tasks.length;
     let done = 0;
 
-    topicData[sub.prefix].forEach(topic => {
-        tasks.forEach(task => {
-            if (localStorage.getItem(`${sub.prefix}-${topic}-${task}`) === "true") done++;
-        });
-    });
+    for (let j = 0; j < topics.length; j++) {
+        for (let k = 0; k < tasks.length; k++) {
+            let key = sub.prefix + "-" + topics[j] + "-" + tasks[k];
+            if (localStorage.getItem(key) === "true") {
+                done++;
+            }
+        }
+    }
 
     let percent = Math.round((done / total) * 100);
 
     let card = document.createElement("a");
-    card.href = `subject.html?sub=${sub.prefix}`;
+    card.href = "subject.html?sub=" + sub.prefix;
     card.className = "card";
 
-    card.innerHTML = `
-        <h3>${sub.name}</h3>
-        <p>${percent}% completed</p>
-        <div class="progress-bar">
-            <div class="fill" style="width:${percent}%"></div>
-        </div>
-    `;
+    card.innerHTML =
+        "<h3>" + sub.name + "</h3>" +
+        "<p>" + percent + "% completed</p>" +
+        "<div class='progress-bar'>" +
+        "<div class='fill' style='width:" + percent + "%'></div>" +
+        "</div>";
 
     container.appendChild(card);
-});
+}
 
-// OVERALL DONUT
+// OVERALL PROGRESS
 function updateOverall() {
-    let total = 0, done = 0;
+    let total = 0;
+    let done = 0;
 
-    subjects.forEach(sub => {
-        topicData[sub.prefix].forEach(topic => {
-            tasks.forEach(task => {
+    for (let i = 0; i < subjects.length; i++) {
+        let sub = subjects[i];
+        let topics = topicData[sub.prefix];
+
+        for (let j = 0; j < topics.length; j++) {
+            for (let k = 0; k < tasks.length; k++) {
                 total++;
-                if (localStorage.getItem(`${sub.prefix}-${topic}-${task}`) === "true") done++;
-            });
-        });
-    });
+                let key = sub.prefix + "-" + topics[j] + "-" + tasks[k];
+
+                if (localStorage.getItem(key) === "true") {
+                    done++;
+                }
+            }
+        }
+    }
 
     let percent = Math.round((done / total) * 100);
 
     document.querySelector(".donut").style.background =
-        `conic-gradient(#22c55e ${percent}%, #334155 ${percent}%)`;
+        "conic-gradient(#22c55e " + percent + "%, #334155 " + percent + "%)";
 
     document.getElementById("overallPercent").innerText = percent + "%";
 }
@@ -82,15 +94,19 @@ function updateOverall() {
 updateOverall();
 
 // COUNTDOWN
-const examDate = new Date("Feb 15, 2027 00:00:00").getTime();
+const examDate = new Date("Feb 15, 2027").getTime();
 
 function updateCountdown() {
-    const now = new Date().getTime();
-    const gap = examDate - now;
+    let now = new Date().getTime();
+    let gap = examDate - now;
 
-    document.getElementById("days").innerText = Math.floor(gap / (1000*60*60*24));
-    document.getElementById("hours").innerText = Math.floor((gap/(1000*60*60))%24);
-    document.getElementById("minutes").innerText = Math.floor((gap/(1000*60))%60);
+    let days = Math.floor(gap / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((gap / (1000 * 60 * 60)) % 24);
+    let minutes = Math.floor((gap / (1000 * 60)) % 60);
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
 }
 
 setInterval(updateCountdown, 1000);
