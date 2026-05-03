@@ -1,29 +1,29 @@
 const subjectlist = [
-    { name: "Engineering Mathematics", prefix: "Maths" },
-    { name: "General Aptitude", prefix: "Apt" },
-    { name: "Networks", prefix: "Net" },
-    { name: "Signals and Systems", prefix: "SS" },
-    { name: "Electronic Devices", prefix: "Dev" },
-    { name: "Analog Circuits", prefix: "Analog" },
-    { name: "Digital Circuits", prefix: "Digital" },
-    { name: "Control Systems", prefix: "Control" },
-    { name: "Communication Systems", prefix: "Comm" },
-    { name: "Electromagnetics", prefix: "EMFT" },
-    { name: "Computer Organization", prefix: "CO" }
+    "Engineering Mathematics",
+    "General Aptitude",
+    "Networks",
+    "Signals and Systems",
+    "Electronic Devices",
+    "Analog Circuits",
+    "Digital Circuits",
+    "Control Systems",
+    "Communication Systems",
+    "Electromagnetics",
+    "Computer Organization"
 ];
 
 const topicData = {
-    Maths: ["Linear Algebra","Calculus","Differential Equations","Vector Calculus","Complex Analysis","Probability"],
-    Apt: ["Verbal Ability","Numerical Ability"],
-    Net: ["Circuit Analysis","Network Theorems","Two Port Networks"],
-    SS: ["LTI Systems","Fourier Series","Laplace Transform","Z-Transform"],
-    Dev: ["Semiconductors","Diodes","BJT","MOSFET"],
-    Analog: ["Diodes","Amplifiers","Op-Amps"],
-    Digital: ["Number Systems","Boolean Algebra","Combinational Circuits","Sequential Circuits","ADC","DAC","Timing & Hazards"],
-    Control: ["Transfer Function","Stability","Root Locus","Bode Plot"],
-    Comm: ["AM","FM","Digital Communication","Information Theory"],
-    EMFT: ["Maxwell Equations","Wave Propagation","Transmission Lines"],
-    CO: ["Memory","ALU","Instruction Pipeline"]
+    "Engineering Mathematics": ["Linear Algebra","Calculus","Differential Equations","Vector Calculus","Complex Analysis","Probability"],
+    "General Aptitude": ["Verbal Ability","Numerical Ability"],
+    "Networks": ["Circuit Analysis","Network Theorems","Two Port Networks"],
+    "Signals and Systems": ["LTI Systems","Fourier Series","Laplace Transform","Z-Transform"],
+    "Electronic Devices": ["Semiconductors","Diodes","BJT","MOSFET"],
+    "Analog Circuits": ["Diodes","Amplifiers","Op-Amps"],
+    "Digital Circuits": ["Number Systems","Boolean Algebra","Combinational Circuits","Sequential Circuits","ADC","DAC","Timing & Hazards"],
+    "Control Systems": ["Transfer Function","Stability","Root Locus","Bode Plot"],
+    "Communication Systems": ["AM","FM","Digital Communication","Information Theory"],
+    "Electromagnetics": ["Maxwell Equations","Wave Propagation","Transmission Lines"],
+    "Computer Organization": ["Memory","ALU","Instruction Pipeline"]
 };
 
 const tasks = ["PYQ","DPP","Revision","Notes"];
@@ -32,8 +32,8 @@ const container = document.getElementById("ECsubjects");
 
 for (let i = 0; i < subjectlist.length; i++) {
 
-    let sub = subjectlist[i];
-    let topics = topicData[sub.prefix];
+    let subject = subjectlist[i];
+    let topics = topicData[subject];
 
     let total = topics.length * tasks.length;
     let done = 0;
@@ -41,7 +41,7 @@ for (let i = 0; i < subjectlist.length; i++) {
     for (let j = 0; j < topics.length; j++) {
         for (let k = 0; k < tasks.length; k++) {
 
-            let key = sub.prefix + "-" + topics[j] + "-" + tasks[k];
+            let key = subject + "-" + topics[j] + "-" + tasks[k];
 
             if (localStorage.getItem(key) === "true") {
                 done++;
@@ -52,11 +52,11 @@ for (let i = 0; i < subjectlist.length; i++) {
     let percent = Math.round((done / total) * 100);
 
     let card = document.createElement("a");
-    card.href = "subject.html?sub=" + sub.prefix;
+    card.href = "subject.html?sub=" + encodeURIComponent(subject);
     card.className = "card";
 
     card.innerHTML =
-        "<h3>" + sub.name + "</h3>" +
+        "<h3>" + subject + "</h3>" +
         "<p>" + percent + "% completed</p>" +
         "<div class='progress-bar'>" +
         "<div class='fill' style='width:" + percent + "%'></div>" +
@@ -64,6 +64,8 @@ for (let i = 0; i < subjectlist.length; i++) {
 
     container.appendChild(card);
 }
+
+
 
 const examDate = new Date("Feb 15, 2027").getTime();
 
