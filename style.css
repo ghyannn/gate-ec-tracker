@@ -71,6 +71,10 @@ h1 {
     transition: transform 0.2s ease;
 }
 
+.card h3 {
+    min-height: 40px;
+}
+
 .card:hover {
     background: #DDA15E;
     color: white;
