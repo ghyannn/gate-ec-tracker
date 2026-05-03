@@ -68,12 +68,13 @@ h1 {
     text-decoration: none;
     color: #283618;
     text-align: left;
+    transition: transform 0.2s ease;
 }
 
-/* hover effect */
 .card:hover {
     background: #DDA15E;
     color: white;
+    transform: translateY(-5px);
 }
 
 
