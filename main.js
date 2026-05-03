@@ -1,7 +1,4 @@
 
-// =====================
-// SUBJECTS LIST
-// =====================
 const subjects = [
     "Engineering Mathematics",
     "General Aptitude",
@@ -16,9 +13,7 @@ const subjects = [
     "Computer Organization"
 ];
 
-// =====================
-// TOPICS FOR EACH SUBJECT
-// =====================
+
 const topics = {
     "Engineering Mathematics": ["Linear Algebra","Calculus","Differential Equations","Vector Calculus","Complex Analysis","Probability"],
     "General Aptitude": ["Verbal Ability","Numerical Ability"],
@@ -33,28 +28,22 @@ const topics = {
     "Computer Organization": ["Memory","ALU","Instruction Pipeline"]
 };
 
-// =====================
-// TASK TYPES
-// =====================
+
 const tasks = ["PYQ","DPP","Revision","Notes"];
 
-// =====================
-// WHERE CARDS WILL GO
-// =====================
+
 const container = document.getElementById("ECsubjects");
 
-// =====================
-// CREATE SUBJECT CARDS
-// =====================
+
 subjects.forEach(function(subject) {
 
     let total = 0;
     let done = 0;
 
-    // go through topics
+   
     topics[subject].forEach(function(topic) {
 
-        // go through tasks
+       
         tasks.forEach(function(task) {
 
             total++;
@@ -70,7 +59,7 @@ subjects.forEach(function(subject) {
 
     let percent = Math.round((done / total) * 100);
 
-    // create card
+   
     let card = document.createElement("a");
     card.className = "card";
     card.href = "subject.html?sub=" + encodeURIComponent(subject);
@@ -87,9 +76,6 @@ subjects.forEach(function(subject) {
 });
 
 
-// =====================
-// COUNTDOWN
-// =====================
 const examDate = new Date("Feb 15, 2027").getTime();
 
 function updateCountdown() {
@@ -106,8 +92,6 @@ function updateCountdown() {
     document.getElementById("minute").innerText = minutes;
 }
 
-// run every second
 setInterval(updateCountdown, 1000);
 
-// run once immediately
 updateCountdown();
