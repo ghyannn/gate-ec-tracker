@@ -1,4 +1,8 @@
-const subjectlist = [
+
+// =====================
+// SUBJECTS LIST
+// =====================
+const subjects = [
     "Engineering Mathematics",
     "General Aptitude",
     "Networks",
@@ -12,7 +16,10 @@ const subjectlist = [
     "Computer Organization"
 ];
 
-const topicData = {
+// =====================
+// TOPICS FOR EACH SUBJECT
+// =====================
+const topics = {
     "Engineering Mathematics": ["Linear Algebra","Calculus","Differential Equations","Vector Calculus","Complex Analysis","Probability"],
     "General Aptitude": ["Verbal Ability","Numerical Ability"],
     "Networks": ["Circuit Analysis","Network Theorems","Two Port Networks"],
@@ -26,34 +33,47 @@ const topicData = {
     "Computer Organization": ["Memory","ALU","Instruction Pipeline"]
 };
 
+// =====================
+// TASK TYPES
+// =====================
 const tasks = ["PYQ","DPP","Revision","Notes"];
 
+// =====================
+// WHERE CARDS WILL GO
+// =====================
 const container = document.getElementById("ECsubjects");
 
-for (let i = 0; i < subjectlist.length; i++) {
+// =====================
+// CREATE SUBJECT CARDS
+// =====================
+subjects.forEach(function(subject) {
 
-    let subject = subjectlist[i];
-    let topics = topicData[subject];
-
-    let total = topics.length * tasks.length;
+    let total = 0;
     let done = 0;
 
-    for (let j = 0; j < topics.length; j++) {
-        for (let k = 0; k < tasks.length; k++) {
+    // go through topics
+    topics[subject].forEach(function(topic) {
 
-            let key = subject + "-" + topics[j] + "-" + tasks[k];
+        // go through tasks
+        tasks.forEach(function(task) {
+
+            total++;
+
+            let key = subject + "-" + topic + "-" + task;
 
             if (localStorage.getItem(key) === "true") {
                 done++;
             }
-        }
-    }
+
+        });
+    });
 
     let percent = Math.round((done / total) * 100);
 
+    // create card
     let card = document.createElement("a");
-    card.href = "subject.html?sub=" + encodeURIComponent(subject);
     card.className = "card";
+    card.href = "subject.html?sub=" + encodeURIComponent(subject);
 
     card.innerHTML =
         "<h3>" + subject + "</h3>" +
@@ -63,10 +83,13 @@ for (let i = 0; i < subjectlist.length; i++) {
         "</div>";
 
     container.appendChild(card);
-}
+
+});
 
 
-
+// =====================
+// COUNTDOWN
+// =====================
 const examDate = new Date("Feb 15, 2027").getTime();
 
 function updateCountdown() {
@@ -83,5 +106,8 @@ function updateCountdown() {
     document.getElementById("minute").innerText = minutes;
 }
 
+// run every second
 setInterval(updateCountdown, 1000);
+
+// run once immediately
 updateCountdown();
